@@ -1,5 +1,5 @@
+from app.utils.ipsec_utils import get_cached_tunnel_options 
 from flask import Blueprint, render_template, current_app
-from app.utils.api import api_call
 
 bp = Blueprint('ipsec', __name__)
 
@@ -9,17 +9,7 @@ def ipsec_home():
     default_local_subnet = config.get("default_local_subnet") or None
     default_local_identifier = config.get("default_local_identifier") or None
     
-    endpoint = "ipsec/connections/search_connection"
-    response = api_call(endpoint)
-
-    # Extraia apenas o necessário para o select (exemplo: uuid e description)
-    tunnel_options = []
-    for row in response.get("rows", []):
-        tunnel_options.append({
-            "uuid": row["uuid"],
-            "description": row["description"]
-        })
-    
+    tunnel_options = get_cached_tunnel_options()
 
     return render_template('ipsec.html', 
                         tunnel_options=tunnel_options, 

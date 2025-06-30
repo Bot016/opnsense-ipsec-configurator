@@ -14,9 +14,11 @@ def create_app():
     from .routes.main import bp as main_bp
     from .routes.ipsec import bp as ipsec_bp
     from .routes.tools import bp as tools_bp
+    from .routes.api import bp as api_bp 
 
     app.register_blueprint(main_bp)
     app.register_blueprint(ipsec_bp, url_prefix="/ipsec")
     app.register_blueprint(tools_bp, url_prefix="/tools")
+    app.register_blueprint(api_bp, url_prefix="/api")
 
     return app

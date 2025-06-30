@@ -1,5 +1,6 @@
-import requests
 from flask import current_app
+import requests
+
 
 def api_call(endpoint, method="GET", payload=None):
     config = current_app.config['CONFIG']
